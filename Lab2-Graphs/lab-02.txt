@@ -1,0 +1,20 @@
+Question 1. Play around with some small values of n. What is the first value of n that causes notably slower runtime for euler1?
+6000
+
+Question 2. What is the first value of n that causes notably slower runtime for euler2?
+I didn't see one. 
+
+Question 3. Use the above code to compare the two Euler functions. Which function is faster? Why is it faster than the other?
+euler2 is faster. euler2 is streamlined and one loop vice euler1 which is nested loops which has the runtime increase faster. 
+
+Question 4. Which function do you expect to run faster? Why?
+Algorith 2 because it is iterative vice recursive. The recursive function will run more times than the iterative. 
+
+Question 5. Use the above code to compare the two Fibonacci functions on similar inputs. Which function was faster? Why do you think it is faster than the other?
+fib_i at 50 was instantously, vice fib_r was 124.3895. It goes to my hypothesis of recursive runs more times and takes more time and memory as it calls itself, instead of just working up. 
+
+Question 6.Modify the above code to work for the Euler functions from the previous program.
+Done.
+
+Question 7. Modify again your timing code to work for each of these functions, and graph them on https://chart-studio.plot.ly/create/#/. Do your graphs match what you expected?
+No I am not sure what I was expecting. It was interesting to see the condensed fib_r be the most smooth with very little scatter. 

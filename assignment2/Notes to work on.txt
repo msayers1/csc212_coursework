@@ -1,0 +1,4 @@
+-Swap the inputs rows and cols to arg 3 arg 2 vice 2 and 3. 
+-figure out 150,500 (optimize my code)
+-hopefully the first one fixes 1x1 and 1x15
+-see if 24x7 is fixed by 1. 

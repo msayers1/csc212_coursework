@@ -1,0 +1,2 @@
+main.cpp and animal.cpp has the additional feature of exercise and changing eat to a negative instead of increasing hunger. 
+user.cpp with the animal.cpp is the command line example. 
