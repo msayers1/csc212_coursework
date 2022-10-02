@@ -4,15 +4,17 @@
 #include <vector>
 #include <array>
 
-std::vector<int>* options(std::vector<int> * input, int size); 
-void print(std::vector<int> * input);
+std::vector<int>* options(std::vector<int> * input, int size, int* counter); 
+void print(std::vector<int> * input, int counter);
 
 int main(){
+    int * counter = new int(1);
     std::vector<int> *input = new std::vector<int>{1, 2, 3};
-    //std::vector<int> *input2 = new std::vector<int>{1, 2, 3, 4, 5};
+    std::vector<int> *input2 = new std::vector<int>{1, 2, 3, 4, 5};
     //std::vector<int> *input3 = new std::vector<int>{71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
-    std::vector<int> *ouput = options(input, 3);
-    //std::vector<int> *ouput2 = options(input2, 5);
+    std::vector<int> *ouput = options(input, 3, counter);
+    *counter = 1;
+    std::vector<int> *ouput2 = options(input2, 5, counter);
     //std::vector<int> *ouput3 = options(input3, 71);
     // std::cout << output << std::endl;
     // std::cout << output2 << std::endl;
@@ -55,7 +57,7 @@ int main(){
 //     return permutations;
 // }
 
-std::vector<int>* options(std::vector<int> * input, int size){
+std::vector<int>* options(std::vector<int> * input, int size, int *counter){
     std::vector<int> * permutations;
     //size_t size = (*input).size();
     if(size == 1){
@@ -63,13 +65,11 @@ std::vector<int>* options(std::vector<int> * input, int size){
     }
     std::vector<int> * n_minus_one = input;
     //(*n_minus_one).pop_back();
-    int n_minus_one_size;
+    int n_minus_one_size = size - 1;
     int temp, temp2;
-    for (int i = 0; i < n_minus_one_size; i++) {
-        n_minus_one_size = size - 1;
-        std::cout << "Here is n : " << n_minus_one_size << ", Here is counter " << i << std::endl; 
-        print(permutations);
+    for (int i = 0; i < size; i++) {
         //std::cout << n_minus_one_size << std::endl;
+        permutations = options(input, n_minus_one_size, counter);
         //(*permutations).push_back((*input)[size - 1]);
         if(i % 2 == 1){
             temp = (*permutations)[n_minus_one_size];
@@ -82,21 +82,21 @@ std::vector<int>* options(std::vector<int> * input, int size){
             (*permutations)[n_minus_one_size] = temp2;
             (*permutations)[i] = temp;
         }
-        permutations = options(permutations, n_minus_one_size);
-        
-        // std::cout << "Here is n : " << n_minus_one_size << ", Here is counter " << i << std::endl; 
-        // print(permutations);
+        //std::cout << "Here is n : " << n_minus_one_size << ", Here is counter " << i << std::endl; 
+        print(permutations, (*counter));
+        (*counter)++;
     }
         
     return permutations;
 }
 
-void print(std::vector<int> * input){
+void print(std::vector<int> * input, int counter){
     // int size = (*input).size();
     // for(int i=0; i < size; i++){
     //     std::cout << input[i] << std::endl;
     // }
     int size = (*input).size();
+    std::cout << counter << ": ";
     for(int i = 0; i < size; i++){
         std::cout << (*input)[i] << " ";
     }
