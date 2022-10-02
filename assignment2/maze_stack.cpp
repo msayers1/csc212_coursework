@@ -16,26 +16,29 @@
 
 void outputGrid(std::vector<std::vector<std::vector<double>>> * grid_data);
 void outputStack(std::string name, std::vector<std::vector<int>> * stack_data);
-void findNeighbors(std::vector<int> current_cell, std::vector<std::vector<std::vector<double>>> grid_data, std::vector<std::vector<int>> * neighbors);
+void findNeighbors(std::vector<int> current_cell, std::vector<std::vector<std::vector<double>>> * grid_data, std::vector<std::vector<int>> * neighbors);
 void writeGridToFile(std::vector<std::vector<std::vector<double>>> * grid_data, std::string filename);
 
-Maze::Maze(int rows, int cols, unsigned int seed, std::string filename ){
-    std::vector<double> default_cell = {15, 0}; 
+Maze::Maze(int rows, int cols, unsigned int seed, std::string filename){
+    //std::vector<std::vector<double>> default_standard(cols, default_cell);
+    //std::vector<std::vector<std::vector<double>>> grid_data(rows, default_standard);
+    std::vector<std::vector<std::vector<double>>> *grid_data_pointer = new std::vector<std::vector<std::vector<double>>>;
     std::vector<std::vector<double>> default_standard(cols, default_cell);
-    std::vector<std::vector<std::vector<double>>> grid_data(rows, default_standard);
+    grid_data_pointer = new std::vector<std::vector<std::vector<double>>>(rows, default_standard);
+    //grid_data_pointer = &grid_data;
     int last_index_rows = rows - 1;
     int last_index_cols = cols - 1;
     //set entrace to open to north.
     // std::cout << "The rows " << rows <<  " and cols " << cols <<  std::endl;
     // outputGrid(&grid_data); 
-     grid_data[0][0][0] = grid_data[0][0][0] - 8;
+    (*grid_data_pointer)[0][0][0] = (*grid_data_pointer)[0][0][0] - 8;
     //set exit to open to south. 
     //std::cout << "The rows " << last_index_rows <<  " and cols " << last_index_cols << grid_data[last_index_rows][last_index_cols][0] << std::endl;
-    grid_data[last_index_rows][last_index_cols][0] = grid_data[last_index_rows][last_index_cols][0] - 4;
+    (*grid_data_pointer)[last_index_rows][last_index_cols][0] = (*grid_data_pointer)[last_index_rows][last_index_cols][0] - 4;
     //std::cout << "The rows " << last_index_rows <<  " and cols " << last_index_cols << grid_data[last_index_rows][last_index_cols][0] << std::endl;
     //creates a stack to track current cell ( A in sudo code provided)
     std::stack<std::vector<int>> current_stack;
-    grid_data[0][0][1] = 1;
+    (*grid_data_pointer)[0][0][1] = 1;
     //initializes and sets up the current cell
     std::vector<int> current_cell = {0, 0}; 
     // adds the current cell to the stack. 
@@ -52,10 +55,9 @@ Maze::Maze(int rows, int cols, unsigned int seed, std::string filename ){
         current_stack.pop();
         //std::cout << "current cell is " << current_cell[0] << " by " << current_cell[1] << std::endl;
         //if(!current_stack.empty()) std::cout << "top of the stack after removing one is cell is " << current_stack.top()[0] << " by " << current_stack.top()[1] << std::endl;            
-        std::vector<std::vector<int>> neighbors;
         unsigned long c_start, c_end;
         c_start = std::clock();
-        findNeighbors(current_cell, grid_data, &neighbors);
+        findNeighbors(current_cell, grid_data_pointer, &neighbors);
         c_end = std::clock();
         float output = 1.0 * (c_end - c_start) / CLOCKS_PER_SEC;
         std::cout << "Find Neighbors Time:" << output << std::endl;
@@ -77,27 +79,27 @@ Maze::Maze(int rows, int cols, unsigned int seed, std::string filename ){
             // std::cout << "this is the NSEW index is " << neighbors[random_index][2] << std::endl;
             switch(neighbors[random_index][2]){
                 case 1:
-                    grid_data[current_cell[0]][current_cell[1]][0] = grid_data[current_cell[0]][current_cell[1]][0] - 8;
-                    grid_data[neigh_row][neigh_col][0] = grid_data[neigh_row][neigh_col][0] - 4;
+                    (*grid_data_pointer)[current_cell[0]][current_cell[1]][0] = (*grid_data_pointer)[current_cell[0]][current_cell[1]][0] - 8;
+                    (*grid_data_pointer)[neigh_row][neigh_col][0] = (*grid_data_pointer)[neigh_row][neigh_col][0] - 4;
                     break;
                 case 2:
-                    grid_data[current_cell[0]][current_cell[1]][0] = grid_data[current_cell[0]][current_cell[1]][0] - 4;
-                    grid_data[neigh_row][neigh_col][0] = grid_data[neigh_row][neigh_col][0] - 8;
+                    (*grid_data_pointer)[current_cell[0]][current_cell[1]][0] = (*grid_data_pointer)[current_cell[0]][current_cell[1]][0] - 4;
+                    (*grid_data_pointer)[neigh_row][neigh_col][0] = (*grid_data_pointer)[neigh_row][neigh_col][0] - 8;
                     break;
                 case 3:
-                    grid_data[current_cell[0]][current_cell[1]][0] = grid_data[current_cell[0]][current_cell[1]][0] - 2;
-                    grid_data[neigh_row][neigh_col][0] = grid_data[neigh_row][neigh_col][0] - 1;
+                    (*grid_data_pointer)[current_cell[0]][current_cell[1]][0] = (*grid_data_pointer)[current_cell[0]][current_cell[1]][0] - 2;
+                    (*grid_data_pointer)[neigh_row][neigh_col][0] = (*grid_data_pointer)[neigh_row][neigh_col][0] - 1;
                     break;
                 case 4:
-                    grid_data[current_cell[0]][current_cell[1]][0] = grid_data[current_cell[0]][current_cell[1]][0] - 1;
-                    grid_data[neigh_row][neigh_col][0] = grid_data[neigh_row][neigh_col][0] - 2;
+                    (*grid_data_pointer)[current_cell[0]][current_cell[1]][0] = (*grid_data_pointer)[current_cell[0]][current_cell[1]][0] - 1;
+                    (*grid_data_pointer)[neigh_row][neigh_col][0] = (*grid_data_pointer)[neigh_row][neigh_col][0] - 2;
                     break;
             }
-            grid_data[neigh_row][neigh_col][1] = 1;
+            (*grid_data_pointer)[neigh_row][neigh_col][1] = 1;
             current_cell = { neigh_row, neigh_col };
             current_stack.push(current_cell);
-            //std::cout << "top of the stack is cell is " << current_stack.top()[0] << " by " << current_stack.top()[1] << std::endl;
-            //std::cout << "current cell is " << neigh_row << " (" << current_cell[0] << ")" << " by " << neigh_col << " (" << current_cell[1] << ")" << std::endl;
+            std::cout << "top of the stack is cell is " << current_stack.top()[0] << " by " << current_stack.top()[1] << std::endl;
+            std::cout << "current cell is " << neigh_row << " (" << current_cell[0] << ")" << " by " << neigh_col << " (" << current_cell[1] << ")" << std::endl;
         } else {
             if(!current_stack.empty()) current_cell = current_stack.top();
         }
@@ -112,7 +114,7 @@ Maze::Maze(int rows, int cols, unsigned int seed, std::string filename ){
     unsigned long write_start, write_end;
     write_start = std::clock();
     //OutputGridToFile(&grid_data);
-    writeGridToFile(&grid_data, filename);
+    writeGridToFile((grid_data_pointer), filename);
     write_end = std::clock();
     float write_output = 1.0 * (write_end - write_start) / CLOCKS_PER_SEC;
     std::cout << "Overall write Time:" << write_output << std::endl;
@@ -174,44 +176,44 @@ void writeGridToFile(std::vector<std::vector<std::vector<double>>> * grid_data, 
     
 }
 
-void findNeighbors(std::vector<int> current_cell, std::vector<std::vector<std::vector<double>>> grid_data, std::vector<std::vector<int>> * neighbors){
+void findNeighbors(std::vector<int> current_cell, std::vector<std::vector<std::vector<double>>> * grid_data, std::vector<std::vector<int>> * neighbors){
     int row = current_cell[0];
     int col = current_cell[1];
     int check_row = row - 1;
     int check_col = col;
     double visited = 1;
-    int row_max = grid_data.size();
-    int col_max = grid_data[0].size();
+    int row_max = (*grid_data).size();
+    int col_max = (*grid_data)[0].size();
     //std::cout << "grid value is a type of " << typeid(visited).name() << std::endl;
     //std::cout << "grid value is a type of " << typeid(grid_data[check_row][check_col][1]).name() << std::endl;
     
     // check north
-    if(0 <= check_row && grid_data[check_row][check_col][1] != visited){
+    if(0 <= check_row && (*grid_data)[check_row][check_col][1] != visited){
             //std::cout << "recording the north neighbor. " << std::endl;
             (*neighbors).push_back({check_row, check_col, 1});
     }
 
     //check south
     check_row = check_row + 2;
-    if(check_row < row_max && grid_data[check_row][check_col][1] != visited){
+    if(check_row < row_max && (*grid_data)[check_row][check_col][1] != visited){
             //std::cout << "recording the south neighbor. " << std::endl;
             (*neighbors).push_back({check_row, check_col, 2});
     }
     //check east
     check_row--;
     check_col++;
-    if(check_col < col_max && grid_data[check_row][check_col][1] != visited){
+    if(check_col < col_max && (*grid_data)[check_row][check_col][1] != visited){
             //std::cout << "recording the east neighbor. " << std::endl;
             (*neighbors).push_back({check_row, check_col, 3});
     }
 
     //check west
     check_col = check_col - 2;
-    if(0 <= check_col && grid_data[check_row][check_col][1] != visited){
+    if(0 <= check_col && (*grid_data)[check_row][check_col][1] != visited){
             //std::cout << "recording the west neighbor. " << std::endl;
             (*neighbors).push_back({check_row, check_col, 4});
     }
     //std::string name = "neighbors";
-    //outputStack(name, &neighbors);
+    //outputStack(name, neighbors);
            
 }

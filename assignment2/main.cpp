@@ -25,12 +25,12 @@ int cols = std::stoi(argv[3]);
 std::string filename = (argv[4]);
 // std::cout << filename << std::endl;
 
-uint64_t val;
-unsigned long c_start, c_end;
-c_start = std::clock();
+// uint64_t val;
+// unsigned long c_start, c_end;
+// c_start = std::clock();
 Maze new_maze(rows, cols, seed, filename );
-c_end = std::clock();
-float output = 1.0 * (c_end - c_start) / CLOCKS_PER_SEC;
-std::cout << "Time:" << output << std::endl;
+// c_end = std::clock();
+// float output = 1.0 * (c_end - c_start) / CLOCKS_PER_SEC;
+// std::cout << "Time:" << output << std::endl;
 
 }
