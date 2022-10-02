@@ -1,0 +1,93 @@
+gradebook.h/gradebook.cpp
+    creates a class for the gradebook
+    takes the file data and populates the members of the class. 
+    
+    methods:
+        record grade
+            ask for assignment
+            ask for grade
+            record grade in assignment
+            change entered to 1
+            print statement of what was recorded. 
+        report current grade
+            pull the grades that have been entered
+            calculate grade 
+            print the grade statement 
+        report final grade
+            calculate grade off all entries
+            print final grade statement
+        give forcast of grade ( maybe a suggestion or take an input of desired grade and reply with the average of the remaining points you need to get.)
+            ask for desired grade
+            caculate how many points needed for desired grade
+            caculate how many points are left
+            caculate average of assignment left ( points needed / points are left )
+            print needed average statement. 
+        ask for category and report grades in that category
+
+file.h/file.cpp
+    Read/Load input/data
+ void ReadFile(std::string file_name, std::vector<std::vector<double>> * image_data){
+    // Opens the file for reading
+    std::ifstream file(file_name);
+
+    // Creates a string to hold each line in temporarily
+    std::string str;
+
+    // Iterates over the file, storing one line at a time into `str`
+    while (std::getline(file, str)) {
+        // Create a temporary 1D Vector of doubles
+       std::vector<double> new_row;
+
+       // Create a stringstream object with our line of integers from the file
+       std::istringstream ss(str);
+
+        if first line
+            get headers 
+        else
+            get id 
+            get grade
+            get totalpoints
+            get category
+            get weight
+            get class
+            get entered
+
+    }
+}
+    Write/Save input/data
+void WriteFile(std::string file_name, std::vector<std::vector<double>> * const image_data){
+    // Open our file with write permissions
+    std::ofstream output_file(file_name);
+    write headers
+    for id as an iterator 
+        write grade
+        write totalpoints
+        write category
+        write weight
+        write class
+        write entered 
+}
+Main.cpp
+//could be pulled out to its own function or tossed in the initialization of the class. 
+if file present 
+    Read/Load input/data 
+else
+    prompt user to provide file path or just saw create new file
+
+provide prompt and options
+start continous loop 
+    take user input
+    switch case for user input
+        run function for user input
+        have a function that exits, kills the program/continous loop
+    print prompt and options again
+
+// We should be able to easily modify the read/write files to accomplish this if we stick with space separated data. 
+// Make sure name does not have any spaces in it. 
+// Grade and Total points will be whole numbers and just add it as a limitation or we can set them to floats/double. The main point is that they are numbers not percentages. 
+// But we can leave off class since it will just be one value for this project.
+database.txt
+id name grade total_points category weight class entered 
+3 assignment1 5 10 assignment 10 csc212 1
+4 quiz1 75 100 quiz 30 csc212 1
+5 quiz2 0 100 quiz 30 csc212 0
