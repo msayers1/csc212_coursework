@@ -1,0 +1,23 @@
+Your Task {#task}
+Your task is to create both a LinkedList class that utilizes a Node class that stores integers, and performs the following tasks:
+
+push_front
+Adds an integer to the front of the list
+push_back
+Adds an integer to the end of the list
+insert
+Adds an integer to the list at a specific index
+delete
+Searches for & removes a specific element in the list
+contains
+Returns true if the given value exists in the list. False otherwise.
+size
+Returns the # of elements in the list
+to_string
+Returns all elements in the list concatenated into a single string. The list 5 -> 3 -> 4 -> 2 would return "5 3 4 2"
+You're welcome to either make a Node class (in which case, the friend keyword might come in handy) or make your Node a struct.
+
+Requirements {#reqs}
+Implement to_string, push_front, and push_back
+Implement contains and size
+Implement insert and delete
