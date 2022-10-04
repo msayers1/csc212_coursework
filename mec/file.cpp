@@ -1,6 +1,7 @@
 // file.cpp
 #include "file.h"
 #include "gradebook.h"
+#include <string>
 #include <iostream>
 #include <stdlib.h>
 #include <vector>
