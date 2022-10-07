@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <stdlib.h>
 
 std::string koch_snowflake(int degree);
 std::string snowflake(int degree);
@@ -21,11 +22,7 @@ std::string koch_snowflake(int degree){
     std::string commands = "";
 
 	// This handles generating the 4 'sides' of the snowflake.
-    for(int i = 0; i < 4; i++){
-        commands += snowflake(degree);
-        commands += "+ + ";
-    }
-
+    commands += snowflake(degree);
     return commands;
 }
 
@@ -34,11 +31,12 @@ std::string snowflake(int degree){
         return "F ";
     }
     std::string commands = "";
-
-	commands += snowflake(degree);
-    //Look at this logic with a fresh mind. 
-    commands = "F - " + commands;
-
+    degree = degree - 1; 
+    commands += snowflake(degree);
+    //Look at this logic with a fresh mind.
+    
+    commands = "F + + F - F + + F - F + + F - F  - F - F + +  F - F + + F - F + + F - F  - F - F + + F - F + + F - F + +" + commands;
+    std::cout << commands << std::endl;
     return commands;
 }
 
