@@ -10,6 +10,6 @@ class File{
     public:
         //File(Gradebook *gradebook);
         File();
-        void ReadFile(std::string filename);
-        void SaveFile(std::string filename);
+            void ReadFile(std::string filename);
+            void SaveFile(std::string filename);
 };

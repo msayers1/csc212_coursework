@@ -8,7 +8,7 @@
 #include <cmath>
 #include <ctime>
 #include "file.h"
-#include "gradebook.h"
+//#include "gradebook.h"
 
 
 
@@ -17,6 +17,7 @@ int main(){
     File newFile;
     std::string filename = "sayers.txt";
     newFile.ReadFile(filename);
+    //ReadFile(filename);
 }
 
 
