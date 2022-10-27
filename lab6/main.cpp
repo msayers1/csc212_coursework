@@ -6,19 +6,19 @@ int function1(int x, int *y){
     return x;
 }
 
-int* function2(int x){
+int function2(int x){
     int y = 23 * x;
-    return &y;
+    return y;
 }
 
 
 int main(){
-    int x = 3, y = 4;
-    x = function1(x, &y);
-    std::cout << x << " - " << y << std::endl;
     // int x = 3, y = 4;
-    // int *z = function2(y);
-    // x = z;
+    // x = function1(x, &y);
     // std::cout << x << " - " << y << std::endl;
+    int x = 3, y = 4;
+    int z = function2(y);
+    x = z;
+    std::cout << x << " - " << y << std::endl;
 
 }
