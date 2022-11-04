@@ -1,16 +1,16 @@
-#include "Node.h"
+#include "NodeForPriorityQueue.h"
 #include <string>
 
-class Queue{
+class PriorityQueue{
     private:
-        Node* head;
-        Node* tail;
+        PriorityNode* head;
+        PriorityNode* tail;
         unsigned int _size = 0;
 
     public:
-        Queue();
+        PriorityQueue();
 
-        void queue(int data);
+        void queue(int data, int priority);
         int dequeue();
         int peek();
         bool contains(int data);
