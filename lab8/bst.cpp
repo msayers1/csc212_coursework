@@ -56,12 +56,11 @@ int BSTree::height(BSTNode* root){
         level++;
         int leftHeight = level;
         int rightHeight = level;
-        if(root->left != nullptr)leftHeight = this->height(root->left);
-        if(root->right != nullptr)rightHeight = this->height(root->right);
+        if(root->left != nullptr)leftHeight += this->height(root->left);
+        if(root->right != nullptr)rightHeight += this->height(root->right);
+        //std::cout << "This is the left height:" << leftHeight << "And the right hand height is:" << rightHeight << std::endl;
         level = MAX(leftHeight, rightHeight);
-    } else {
-        level--;
-    }
+    } 
     return level;
 }
 
@@ -105,7 +104,7 @@ void BSTree::insert(int data){
 
 int BSTree::height(){
     int value = this->height(root);
-    return value;
+    return --value;
 }
 
 void BSTree::preorder(std::ostream& os){
