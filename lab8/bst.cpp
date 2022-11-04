@@ -23,31 +23,47 @@ BSTNode::~BSTNode(){
 
 BSTNode* BSTree::insert(int data, BSTNode* root){
 
+    BSTNode* response; 
     BSTNode* temp = new BSTNode(data);
+    //std::cout << "if decision" << data << "the root object check" << (root == nullptr) << std::endl;
+    
     if(root == nullptr){
-        this->root = temp;
+        root = temp;
         return root;    
     }
-    BSTNode* currentNode = root;
-    bool running = true;
-    while(running == true){
-        if(data > currentNode->data){
-            if(currentNode->right){
-                currentNode = currentNode->right;    
-            } else {
-                currentNode->right = temp;
-                running = false;
-            }
-        } else {
-            if(currentNode->left){
-                currentNode = currentNode->left;
-            } else {
-                currentNode->left = temp;
-                running = false;
-            }
-        }
+    //std::cout << "if decision" << data << "the root object" << root << "the bool:" << (data > root->data) << std::endl;
+    
+    if(data > root->data){
+        response = insert(data, root->right);
+        //std::cout << "Right Tree" << data << "The right pointer" << root->right << std::endl;
+        root->right = response;
+        //std::cout << "Right Tree" << data << "The right pointer now is" << root->right << std::endl;
+    } else {
+        response = insert(data, root->left);
+        //std::cout << "Left Tree" << data << "The left pointer" << root->right << std::endl;
+        root->left = response;
+        //std::cout << "Left Tree" << data << "The left pointer now is" << root->right << std::endl;
     }
-    return temp;
+    // BSTNode* currentNode = root;
+    // bool running = true;
+    // while(running == true){
+    //     if(data > currentNode->data){
+    //         if(currentNode->right){
+    //             currentNode = currentNode->right;    
+    //         } else {
+    //             currentNode->right = temp;
+    //             running = false;
+    //         }
+    //     } else {
+    //         if(currentNode->left){
+    //             currentNode = currentNode->left;
+    //         } else {
+    //             currentNode->left = temp;
+    //             running = false;
+    //         }
+    //     }
+    // }
+    return root;
 }
 
 int BSTree::height(BSTNode* root){
@@ -140,7 +156,7 @@ BSTree::~BSTree(){
 }
 
 void BSTree::insert(int data){
-    this->insert(data, root);
+    this->root = this->insert(data, root);
     return;
 }
 
