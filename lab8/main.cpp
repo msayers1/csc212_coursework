@@ -13,6 +13,13 @@ int main(){
     }
     std::cout << "the height is " << t.height() << std::endl;
     std::cout << "Is the height 99?  " << (t.height() == 99) << std::endl;
+    BSTree t3;
+    bool result0 = t3.search(0);
+    std::cout << "insert(2)" << std::endl;
+    t3.insert(0);
+    bool result1 = t3.search(0);
+    bool result2 = t3.search(1);
+    std::cout << "result0: " << result0 << " , result1: " << result1 << " , result2: " << result2 << std::endl;
     return 0;
 }
     

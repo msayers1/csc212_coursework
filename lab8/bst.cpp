@@ -65,23 +65,64 @@ int BSTree::height(BSTNode* root){
 }
 
 void BSTree::preorder(BSTNode* root, std::ostream& os){
+    if(root != nullptr){
+        os << root->data << ", ";
+        this->preorder(root->left, os);
+        this->preorder(root->right, os);
+    }
     return;
 }
 
 void BSTree::inorder(BSTNode* root, std::ostream& os){
+    if(root != nullptr){
+        this->inorder(root->left, os);
+        os << root->data << ", ";
+        this->inorder(root->right, os);
+    }
     return;
 }
 
 void BSTree::postorder(BSTNode* root, std::ostream& os){
-
+    if(root != nullptr){
+        this->postorder(root->left, os);
+        this->postorder(root->right, os);
+        os << root->data << ", ";
+    }
+    return;
 }
 
 void BSTree::destroy(BSTNode* root){
+    if(root == nullptr){
+        return;
+    }
+    destroy(root->left);
+    destroy(root->right);
+    delete root;
+    this->root = nullptr;
     return;
 }
 
 bool BSTree::search(int data, BSTNode* root){
-    return false;
+   bool answer = false;
+    if(root == nullptr){
+        return false;
+    }
+
+    if(root != nullptr && data == root->data){
+        return true;
+    } 
+
+    if(root->left != nullptr){
+        if(data < root->data){
+            answer = search(data, root->left);
+        }
+    }
+    if(root->right != nullptr){
+        if(root->data < data){
+            if(root->right != nullptr) search(data, root->right);
+        }
+    }
+   return answer;
 }
 
 /*
@@ -94,6 +135,7 @@ BSTree::BSTree(){
 }
 
 BSTree::~BSTree(){
+    this->destroy(this->root);
     return;
 }
 
@@ -108,17 +150,24 @@ int BSTree::height(){
 }
 
 void BSTree::preorder(std::ostream& os){
+    this->preorder(this->root, os);
+    os << "\n";
     return;
 }
 
 void BSTree::inorder(std::ostream& os){
+    this->inorder(this->root, os);
+    os << "\n";
     return;
 }
 
 void BSTree::postorder(std::ostream& os){
+    this->postorder(this->root, os);
+    os << "\n";
     return;
 }
 
 bool BSTree::search(int data){
-    return false;
+     bool answer = this->search(data, this->root);
+    return answer;
 }
