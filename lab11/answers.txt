@@ -1,0 +1,12 @@
+What is the big O runtime of insert on a set? A map?
+    log(n) for both. 
+What is the difference between a set and a map?
+    set is a set of keys, where a map is a set of keys to values. 
+Why are sets and maps useful?
+    maps are useful for Lookup tables and other key/value pair instances. sets are useful when you want to group things into categories. 
+How many countries currently have confirmed cases of COVID-19? (set methods)
+    190, assuming only countries with confirmed cases were included in the file. 
+How many confirmed cases does Kazakhstan currently have? (map methods)
+    110684
+Which country has the most confirmed cases?
+    Maharashtra with a case of 1648665

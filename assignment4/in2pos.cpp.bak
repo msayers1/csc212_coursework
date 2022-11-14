@@ -1,0 +1,149 @@
+//in2pos.cpp:
+#include <iostream>
+#include <utility>
+#include <stdlib.h>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <algorithm>
+#include <sstream>
+#include <cmath>
+#include <stack>
+ std::string const leftParanthesis = "(";
+ std::string const rightParanthesis = ")";
+
+std::string in2pos(std::string input);
+
+int main(int argc, char* argv[]){
+
+std::string input =argv[1];
+// std::string input ="1 + 2";
+std::string output = in2pos(input);
+std::cout << output << std::endl;
+// input = "-10 + 20 * ( 30 / 2 )";
+// output = in2pos(input);
+// std::cout << output << std::endl;
+// input = "( 5 + 3 ) * 12 / 3";
+// output = in2pos(input);
+// std::cout << output << std::endl;
+// input = "33 + 12 - 12 / ( 4 * -9 )";
+// output = in2pos(input);
+// std::cout << output << std::endl;
+// input = "1 + 2 - 3 * 4 / 5 ^ 6";
+// output = in2pos(input);
+// std::cout << output << std::endl;
+
+}
+
+int evalutateOperator(std::string entity){
+    int operatorNumber;
+    if(entity == "-"){
+        operatorNumber = 2;
+    } else if(entity == "+"){
+        operatorNumber = 1;
+    } else if(entity == "*"){
+        operatorNumber = 4;
+    } else if(entity == "/"){
+        operatorNumber = 3;
+    } else if(entity == "^"){
+        operatorNumber = 5;
+    }
+    return operatorNumber;
+}
+
+void CheckStack(std::string entity, std::stack <std::string>* outputstack, std::string* output){
+    std::string temp = "";
+    bool running = true;
+    if(entity == "("){
+        (*outputstack).push("(");
+        //std::cout << "left parenthesis" << std::endl;    
+    } else if (entity == ")") {
+        while(running){
+            if((*outputstack).size() != 0){
+                temp = (*outputstack).top();
+                (*outputstack).pop();
+                if(temp == "("){
+                    running = false;
+                } else {
+                    (*output) = (*output) + temp + " ";
+                }
+            }else{
+                running = false;
+            }
+        }
+        //std::cout << "right parenthesis" << std::endl; 
+    } else if (entity == "+" || entity == "-" || entity == "*" || entity == "/" || entity == "^") {
+        int operatorNumber = evalutateOperator(entity);
+        int stackOperatorNumber;
+        //std::cout << operatorNumber << " ( " << entity << " ) " << std::endl;
+
+        while(running){
+            if(temp == "("){
+                running = false;
+            }
+            if((*outputstack).size() != 0){
+                temp = (*outputstack).top();
+                if( temp == "("){
+                    running = false;
+                } else{
+                    stackOperatorNumber = evalutateOperator(temp);    
+                    //std::cout << stackOperatorNumber << " ( " << temp << " ) " << (operatorNumber < stackOperatorNumber || (stackOperatorNumber < 5 && operatorNumber == stackOperatorNumber))  << ": Made up of " << (operatorNumber < stackOperatorNumber) << " or " << (stackOperatorNumber < 5) << " and "  << (operatorNumber == stackOperatorNumber) << std::endl;
+                    if(operatorNumber < stackOperatorNumber || (stackOperatorNumber < 5 && operatorNumber == stackOperatorNumber)){
+                        (*outputstack).pop();
+                        (*output) = (*output) + temp + " ";
+                    } else {
+                        
+                        running = false;
+                    }
+                }
+            }else{
+                running = false;
+            }
+            
+            
+        }
+        (*outputstack).push(entity);
+    } else {
+        (*output) = (*output) + entity + " "; 
+        //std::cout << entity << std::endl;
+    } 
+}
+
+
+std::string in2pos(std::string input){
+    std::istringstream my_stream (input);
+    std::string entity;
+    std::string output = "";
+    std::string temp = "";
+    std::stack <std::string> outputstack;
+    while(my_stream >> entity){
+        //std::cout << entity << std::endl;
+        CheckStack(entity, &outputstack, &output);
+    }
+    bool running = true;
+    while(running){
+            if(outputstack.size() != 0){
+                temp = outputstack.top();
+                outputstack.pop();
+                output = output + temp + " ";
+            }else{
+                running = false;
+            }
+            
+            
+        }
+
+    // if left parenthesis
+    //     push it onto the stack
+    // if operator
+    //     pop and write to the output string all consecutive operators that are either operators of higher precedence, or left-associative operators of equal precedence
+    //     push the operator onto the stack
+    // if right parenthesis
+    //     pop and write to the output string all operators until a left parenthesis is popped off the stack
+    // if number
+    //     it may be immediately written to the output string
+    // if end of the string
+    //     pop and write to the output string all operators until the stack is empty
+    //std::string output = input;
+    return output;
+}

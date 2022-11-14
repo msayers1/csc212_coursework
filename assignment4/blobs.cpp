@@ -19,23 +19,27 @@
 
 void ReadFile(std::string file_name, std::vector<std::vector<std::vector<double>>> * grid_data);
 void outputGrid(std::vector<std::vector<std::vector<double>>> * grid_data);
-void findAllConnectedCells(int* counter, int rows, int columns, int startRow, int startCol, int conn, std::vector<std::vector<std::vector<double>>> * grid_data);
+void findAllConnectedCells(int rows, int columns, int startRow, int startCol, int conn, std::vector<std::vector<std::vector<double>>> * grid_data);
 
 int main(int argc, char* argv[]){
     std::string filename = argv[1];
     int rows = std::stoi(argv[2]);
     int columns = std::stoi(argv[3]);
-    int startRow = std::stoi(argv[4]) - 1;
-    int startCol = std::stoi(argv[5]) - 1;
-    int conn = std::stoi(argv[6]);
+    int conn = std::stoi(argv[4]);
     std::vector<std::vector<std::vector<double>>> grid_data;
     ReadFile(filename, &grid_data);
     int counter = 0;
-    if(grid_data[startRow][startCol][0] == 1 && grid_data[startRow][startCol][1] == 0){
-        counter++;
-        grid_data[startRow][startCol][1] = 1;
-        findAllConnectedCells(&counter, rows,columns,startRow,startCol,conn, &grid_data);
+    for(int y = 0; y < (rows-1); y++){
+        for(int x = 0; x < (columns-1); x++){
+            if(grid_data[y][x][0] == 1 && grid_data[y][x][1] == 0){
+                counter++;
+                grid_data[y][x][1] = 1;
+                findAllConnectedCells(rows,columns,y,x,conn, &grid_data);
+            }
+        }
+    
     }
+        
     
     std::cout << counter << std::endl; 
     //outputGrid(&grid_data);
@@ -82,54 +86,53 @@ void ReadFile(std::string file_name, std::vector<std::vector<std::vector<double>
     }
 }
 
-void checkCell(int yPos, int xPos, int* counter, int rows, int columns, int startRow, int startCol, int conn, std::vector<std::vector<std::vector<double>>> * grid_data){
+void checkCell(int yPos, int xPos, int rows, int columns, int startRow, int startCol, int conn, std::vector<std::vector<std::vector<double>>> * grid_data){
     //std::cout << "counter " << (*counter) << ",yPos" << yPos << ",xPos " << xPos << ",value " << (*grid_data)[yPos][xPos][0] << ",visited? " << (*grid_data)[yPos][xPos][1] << ",if statement: " << ((*grid_data)[yPos][xPos][0] == 1 && (*grid_data)[yPos][xPos][1] == 0) << std::endl;
     if((*grid_data)[yPos][xPos][0] == 1 && (*grid_data)[yPos][xPos][1] == 0){
-        (*counter)++;
         (*grid_data)[yPos][xPos][1] = 1;
-        findAllConnectedCells(counter, rows, columns, yPos, xPos, conn, grid_data);
+        findAllConnectedCells(rows, columns, yPos, xPos, conn, grid_data);
     }
 }
     
     
 
-void findAllConnectedCells(int* counter, int rows, int columns, int startRow, int startCol, int conn, std::vector<std::vector<std::vector<double>>> * grid_data){
+void findAllConnectedCells( int rows, int columns, int startRow, int startCol, int conn, std::vector<std::vector<std::vector<double>>> * grid_data){
     
 
     //Set the x and y to north cell
     int xPos = startCol;
     int yPos = MAX(0, (startRow-1));
-    checkCell(yPos, xPos, counter, rows, columns, startRow, startCol, conn, grid_data);
+    checkCell(yPos, xPos, rows, columns, startRow, startCol, conn, grid_data);
     //Set the x and y to south cell
     xPos = startCol;
     yPos = MIN((rows-1), (startRow+1));
-    checkCell(yPos, xPos, counter, rows, columns, startRow, startCol, conn, grid_data);
+    checkCell(yPos, xPos, rows, columns, startRow, startCol, conn, grid_data);
     //Set the x and y to west cell
     xPos = MAX(0, (startCol-1));
     yPos = startRow;
-    checkCell(yPos, xPos, counter, rows, columns, startRow, startCol, conn, grid_data);
+    checkCell(yPos, xPos, rows, columns, startRow, startCol, conn, grid_data);
     //Set the x and y to east cell
     xPos = MIN((columns-1), (startCol+1));
     yPos = startRow;
-    checkCell(yPos, xPos, counter, rows, columns, startRow, startCol, conn, grid_data);    
+    checkCell(yPos, xPos, rows, columns, startRow, startCol, conn, grid_data);    
 
     if(conn == 8){
         //Set the x and y to north-west cell
         int xPos = MAX(0, (startCol-1));
         int yPos = MAX(0, (startRow-1));
-        checkCell(yPos, xPos, counter, rows, columns, startRow, startCol, conn, grid_data);
+        checkCell(yPos, xPos, rows, columns, startRow, startCol, conn, grid_data);
         //Set the x and y to south-east cell
         xPos = MIN((columns-1), (startCol+1));
         yPos = MIN((rows-1), (startRow+1));
-        checkCell(yPos, xPos, counter, rows, columns, startRow, startCol, conn, grid_data);
+        checkCell(yPos, xPos, rows, columns, startRow, startCol, conn, grid_data);
         //Set the x and y to north-east cell
         xPos = MIN((columns-1), (startCol+1));
         yPos = MAX(0, (startRow-1));
-        checkCell(yPos, xPos, counter, rows, columns, startRow, startCol, conn, grid_data);
+        checkCell(yPos, xPos, rows, columns, startRow, startCol, conn, grid_data);
         //Set the x and y to south-west cell
         xPos = MAX(0, (startCol-1));
         yPos = MIN((rows-1), (startRow+1));
-        checkCell(yPos, xPos, counter, rows, columns, startRow, startCol, conn, grid_data);    
+        checkCell(yPos, xPos, rows, columns, startRow, startCol, conn, grid_data);    
 
     }
 }
