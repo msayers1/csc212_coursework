@@ -30,7 +30,7 @@ void RBTNode::swapColor(){
 }
 
 RBTNode* RBTree::insert(int data, RBTNode* root){
-    std::cout << "entering: " << data << " into " << ((root)?std::to_string(root->data):"Null") << std::endl;
+    // std::cout << "entering: " << data << " into " << ((root)?std::to_string(root->data):"Null") << std::endl;
     if(!root){
         return new RBTNode(data);
     }
@@ -49,7 +49,7 @@ RBTNode* RBTree::insert(int data, RBTNode* root){
     
     if(root->right != nullptr){
         if(root->color == false && root->right->color == true){
-            std::cout << "Triggering color based Rotate Left" << std::endl;
+            // std::cout << "Triggering color based Rotate Left" << std::endl;
             root = this->rotateLeft(root);
             root->swapColor();
             root->left->swapColor();
@@ -59,27 +59,27 @@ RBTNode* RBTree::insert(int data, RBTNode* root){
     if(root->left != nullptr){
         if(root->left->left != nullptr){
             if(root->left->color == true && root->left->left->color == true){
-                std::cout << "Triggering color based Rotate Right" << std::endl;
-                std::cout << "Root:" << root->data << "(Color:" << (root->color?red:black) << "), "<< "Root Left" << ((root->left!=nullptr)?(std::to_string(root->left->data) + "(Color:" + (root->left->color?red:black) + ")"):"Null") << "Root Left Left" << ((root->left->left!=nullptr)?(std::to_string(root->left->left->data) + "(Color:" + (root->left->left->color?red:black) + ")"):"Null") << std::endl;
+                // std::cout << "Triggering color based Rotate Right" << std::endl;
+                // std::cout << "Root:" << root->data << "(Color:" << (root->color?red:black) << "), "<< "Root Left" << ((root->left!=nullptr)?(std::to_string(root->left->data) + "(Color:" + (root->left->color?red:black) + ")"):"Null") << "Root Left Left" << ((root->left->left!=nullptr)?(std::to_string(root->left->left->data) + "(Color:" + (root->left->left->color?red:black) + ")"):"Null") << std::endl;
                 root = this->rotateRight(root);
-                std::cout << "Root:" << root->data << "(Color:" << (root->color?red:black) << "), "<< "Root Left" << ((root->left!=nullptr)?(std::to_string(root->left->data) + "(Color:" + (root->left->color?red:black) + ")"):"Null") << "Root Right" << ((root->right!=nullptr)?(std::to_string(root->right->data) + "(Color:" + (root->right->color?red:black) + ")"):"Null") << std::endl;
+                // std::cout << "Root:" << root->data << "(Color:" << (root->color?red:black) << "), "<< "Root Left" << ((root->left!=nullptr)?(std::to_string(root->left->data) + "(Color:" + (root->left->color?red:black) + ")"):"Null") << "Root Right" << ((root->right!=nullptr)?(std::to_string(root->right->data) + "(Color:" + (root->right->color?red:black) + ")"):"Null") << std::endl;
                 
                 root->swapColor();
                 root->right->swapColor();
-                std::cout << "Root:" << root->data << "(Color:" << (root->color?red:black) << "), "<< "Root Left" << ((root->left!=nullptr)?(std::to_string(root->left->data) + "(Color:" + (root->left->color?red:black) + ")"):"Null") << "Root Right" << ((root->right!=nullptr)?(std::to_string(root->right->data) + "(Color:" + (root->right->color?red:black) + ")"):"Null") << std::endl;
+                // std::cout << "Root:" << root->data << "(Color:" << (root->color?red:black) << "), "<< "Root Left" << ((root->left!=nullptr)?(std::to_string(root->left->data) + "(Color:" + (root->left->color?red:black) + ")"):"Null") << "Root Right" << ((root->right!=nullptr)?(std::to_string(root->right->data) + "(Color:" + (root->right->color?red:black) + ")"):"Null") << std::endl;
                 
             }
         }
     }       
     if(root->left != nullptr && root->right != nullptr){
         if(root->left->color == true && root->right->color == true){
-            std::cout << "Triggering swap color" << std::endl;
-            std::cout << "Root:" << root->data << "(Color:" << (root->color?red:black) << "), "<< "Root Left" << ((root->left!=nullptr)?(std::to_string(root->left->data) + "(Color:" + (root->left->color?red:black) + ")"):"Null") << "Root Right" << ((root->right!=nullptr)?(std::to_string(root->right->data) + "(Color:" + (root->right->color?red:black) + ")"):"Null") << std::endl;
+            // std::cout << "Triggering swap color" << std::endl;
+            // std::cout << "Root:" << root->data << "(Color:" << (root->color?red:black) << "), "<< "Root Left" << ((root->left!=nullptr)?(std::to_string(root->left->data) + "(Color:" + (root->left->color?red:black) + ")"):"Null") << "Root Right" << ((root->right!=nullptr)?(std::to_string(root->right->data) + "(Color:" + (root->right->color?red:black) + ")"):"Null") << std::endl;
                 
             root->left->swapColor();
             root->right->swapColor();
             root->swapColor();
-            std::cout << "Root:" << root->data << "(Color:" << (root->color?red:black) << "), "<< "Root Left" << ((root->left!=nullptr)?(std::to_string(root->left->data) + "(Color:" + (root->left->color?red:black) + ")"):"Null") << "Root Right" << ((root->right!=nullptr)?(std::to_string(root->right->data) + "(Color:" + (root->right->color?red:black) + ")"):"Null") << std::endl;
+            // std::cout << "Root:" << root->data << "(Color:" << (root->color?red:black) << "), "<< "Root Left" << ((root->left!=nullptr)?(std::to_string(root->left->data) + "(Color:" + (root->left->color?red:black) + ")"):"Null") << "Root Right" << ((root->right!=nullptr)?(std::to_string(root->right->data) + "(Color:" + (root->right->color?red:black) + ")"):"Null") << std::endl;
             
         }
     }
